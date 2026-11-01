@@ -5,6 +5,12 @@ import { lockScroll, scrollTo } from '../lib/scroll'
 
 const targets = ['#about', '#work', '#career', '#writing', '#contact']
 
+// The session cookie is HttpOnly, so only the server can clear it.
+async function logout() {
+  await fetch('/api/logout', { method: 'POST' }).catch(() => {})
+  window.location.replace('/login.html')
+}
+
 export default function Nav({ onHome }) {
   const c = useContent()
   const [open, setOpen] = useState(false)
@@ -47,6 +53,7 @@ export default function Nav({ onHome }) {
       </nav>
       <div className="nav-right">
         <a className="nav-cta" href="#contact" onClick={(e) => go(e, '#contact')}>{c.ui.talk}</a>
+        <button type="button" className="nav-logout" onClick={logout}>Log out</button>
         <button
           ref={menuBtn}
           type="button"

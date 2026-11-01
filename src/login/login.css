@@ -1,0 +1,434 @@
+:root {
+  --night: #0c0716;
+  --night-2: #1a0f2e;
+  --ink: #f4ecdf;
+  --muted: #b9adc9;
+  --pumpkin: #ff7a1a;
+  --pumpkin-2: #ffb347;
+  --slime: #9be564;
+  --blood: #ff5a6a;
+  --line: rgba(244, 236, 223, 0.14);
+  --beam: rgba(255, 222, 150, 0.9);
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--night);
+  color: var(--ink);
+  font: 16px/1.55 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pumpkin-2);
+  outline-offset: 3px;
+}
+
+.login {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 48px 16px;
+  isolation: isolate;
+}
+
+/* ---------- Scene ---------- */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 55% at 78% 18%, rgba(140, 90, 210, 0.35), transparent 70%),
+    linear-gradient(180deg, #120a24 0%, var(--night-2) 55%, #24123a 100%);
+}
+.stars {
+  position: absolute;
+  inset: 0 0 40% 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 22%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 28% 8%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 44% 30%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 61% 12%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 40%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 6% 48%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 35% 52%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 93% 9%, #fff 50%, transparent 51%);
+  opacity: 0.7;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  to { opacity: 0.35; }
+}
+.moon {
+  position: absolute;
+  top: 8vh;
+  right: 12vw;
+  width: clamp(90px, 14vw, 170px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, #fffbe8, #f1dfa6 55%, #d9bf7a 100%);
+  box-shadow: 0 0 60px 18px rgba(255, 236, 170, 0.28), 0 0 160px 60px rgba(180, 140, 255, 0.18);
+}
+.moon::before,
+.moon::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(180, 150, 90, 0.25);
+}
+.moon::before { width: 22%; height: 22%; top: 30%; left: 52%; }
+.moon::after { width: 14%; height: 14%; top: 60%; left: 30%; }
+
+.bat {
+  position: absolute;
+  width: 54px;
+  fill: #05030a;
+  animation: fly 16s linear infinite, flap 0.35s ease-in-out infinite alternate;
+}
+.bat.b1 { top: 16vh; animation-delay: 0s, 0s; }
+.bat.b2 { top: 26vh; width: 36px; animation-duration: 22s, 0.3s; animation-delay: -8s, -0.1s; }
+.bat.b3 { top: 9vh; width: 28px; animation-duration: 26s, 0.28s; animation-delay: -15s, 0s; }
+@keyframes fly {
+  0% { left: -80px; transform: translateY(0); }
+  25% { transform: translateY(-24px); }
+  50% { transform: translateY(12px); }
+  75% { transform: translateY(-18px); }
+  100% { left: 110vw; transform: translateY(0); }
+}
+@keyframes flap {
+  to { scale: 1 0.55; }
+}
+
+.house {
+  position: absolute;
+  right: -2vw;
+  bottom: 0;
+  width: min(520px, 70vw);
+  fill: #07040d;
+}
+.house .win { fill: #ffb347; filter: drop-shadow(0 0 6px #ff8a1a); }
+.house .flicker { animation: flicker 3.2s steps(1) infinite; }
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41% { opacity: 0.3; }
+  44% { opacity: 1; }
+  70% { opacity: 0.6; }
+  72% { opacity: 1; }
+}
+
+.pumpkin {
+  position: absolute;
+  left: 4vw;
+  bottom: 2vh;
+  width: clamp(90px, 13vw, 160px);
+  filter: drop-shadow(0 0 30px rgba(255, 122, 26, 0.45));
+}
+.pumpkin .skin { fill: #e8640e; }
+.pumpkin .rib { fill: none; stroke: #b4470a; stroke-width: 3; }
+.pumpkin .stem { fill: #4f6b2a; }
+.pumpkin .face { fill: #ffe08a; animation: candle 2.4s ease-in-out infinite alternate; }
+@keyframes candle {
+  0% { fill: #ffe08a; }
+  50% { fill: #ffc14d; }
+  100% { fill: #fff2b8; }
+}
+
+.fog {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  height: 34vh;
+  bottom: -6vh;
+  background:
+    radial-gradient(40% 60% at 20% 70%, rgba(210, 200, 235, 0.16), transparent 70%),
+    radial-gradient(35% 50% at 60% 80%, rgba(210, 200, 235, 0.14), transparent 70%),
+    radial-gradient(30% 55% at 90% 75%, rgba(210, 200, 235, 0.12), transparent 70%);
+  animation: drift 24s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.fog.f2 { bottom: -12vh; animation-duration: 32s; animation-direction: alternate-reverse; opacity: 0.8; }
+@keyframes drift {
+  to { transform: translateX(12%); }
+}
+
+/* With the flashlight on the night closes in, except where it points. */
+.dark {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), transparent 0%, rgba(4, 2, 8, 0.82) 70%);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease);
+  pointer-events: none;
+}
+.torch-on .dark { opacity: 1; }
+
+/* ---------- Card ---------- */
+.card-wrap {
+  width: min(430px, 100%);
+}
+.card {
+  position: relative;
+  padding: 34px 30px 30px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(36, 20, 58, 0.86), rgba(18, 10, 30, 0.92));
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 122, 26, 0.08), 0 0 60px -10px rgba(255, 122, 26, 0.25);
+  backdrop-filter: blur(6px);
+  animation: rise 0.9s var(--ease) both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+}
+/* Cobweb in the corner */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 78px;
+  height: 78px;
+  border-top-right-radius: 22px;
+  background:
+    repeating-radial-gradient(circle at 100% 0, transparent 0 11px, rgba(244, 236, 223, 0.18) 11px 12px),
+    conic-gradient(from 180deg at 100% 0, transparent 0deg, rgba(244, 236, 223, 0.18) 1deg 2deg, transparent 3deg 22deg, rgba(244, 236, 223, 0.18) 23deg 24deg, transparent 25deg 44deg, rgba(244, 236, 223, 0.18) 45deg 46deg, transparent 47deg 66deg, rgba(244, 236, 223, 0.18) 67deg 68deg, transparent 69deg);
+  -webkit-mask: radial-gradient(circle at 100% 0, #000 70%, transparent 71%);
+  mask: radial-gradient(circle at 100% 0, #000 70%, transparent 71%);
+  pointer-events: none;
+}
+.card.shake { animation: shake 0.45s; }
+@keyframes shake {
+  20% { transform: translateX(-9px) rotate(-1deg); }
+  40% { transform: translateX(8px) rotate(1deg); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(4px); }
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pumpkin-2);
+}
+h1 {
+  margin: 0;
+  font: 400 clamp(40px, 9vw, 54px)/1 'Creepster', 'Inter', cursive;
+  letter-spacing: 0.02em;
+  color: var(--pumpkin);
+  text-shadow: 0 2px 0 #5a1e00, 0 0 24px rgba(255, 122, 26, 0.45);
+}
+.sub {
+  margin: 10px 0 24px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+label {
+  display: block;
+  margin: 16px 0 7px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.text,
+.pw input {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(6, 3, 12, 0.6);
+  color: var(--ink);
+  font: 500 17px var(--mono);
+  letter-spacing: 0.12em;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.text:focus,
+.pw input:focus {
+  outline: none;
+  border-color: var(--pumpkin-2);
+  box-shadow: 0 0 0 3px rgba(255, 179, 71, 0.22);
+}
+.text[aria-invalid='true'],
+.pw.is-invalid input {
+  border-color: var(--blood);
+}
+
+/* ---------- Flashlight password ---------- */
+.pw {
+  position: relative;
+  border-radius: 12px;
+}
+.pw input {
+  padding-right: 64px;
+  color: transparent;
+  caret-color: var(--pumpkin-2);
+}
+.pw input::selection { background: rgba(255, 179, 71, 0.3); color: transparent; }
+.pw input::-ms-reveal { display: none; }
+
+.pw-layer {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 17px;
+  right: 64px;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  /* The beam is positioned in field coordinates; the layer starts 17px in. */
+  --lx: calc(var(--bx) - 17px);
+}
+.pw-layer span {
+  font: 500 17px var(--mono);
+  letter-spacing: 0.12em;
+  white-space: pre;
+  transform: translateX(var(--scroll, 0));
+}
+.pw-dots span { color: var(--muted); }
+.pw-real span {
+  color: #fff6d8;
+  text-shadow: 0 0 8px rgba(255, 214, 120, 0.9);
+}
+.pw-real { visibility: hidden; }
+.pw.is-on .pw-real {
+  visibility: visible;
+  -webkit-mask: radial-gradient(var(--br) 140% at var(--lx) 50%, #000 55%, transparent 100%);
+  mask: radial-gradient(var(--br) 140% at var(--lx) 50%, #000 55%, transparent 100%);
+}
+.pw.is-on .pw-dots {
+  -webkit-mask: radial-gradient(var(--br) 140% at var(--lx) 50%, transparent 55%, #000 100%);
+  mask: radial-gradient(var(--br) 140% at var(--lx) 50%, transparent 55%, #000 100%);
+}
+/* Spot of light on the field */
+.pw.is-on::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: radial-gradient(calc(var(--br) * 1.1) 120% at var(--bx) 50%, rgba(255, 222, 150, 0.22), transparent 70%);
+  pointer-events: none;
+}
+/* Cone from the lens to the spot */
+.pw-cone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: min(var(--bx), calc(100% - 60px));
+  right: 52px;
+  background: linear-gradient(to left, rgba(255, 222, 150, 0.32), rgba(255, 222, 150, 0.04));
+  clip-path: polygon(0 0, 100% 42%, 100% 58%, 0 100%);
+  pointer-events: none;
+}
+
+.torch {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 52px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.torch:hover { background: rgba(255, 179, 71, 0.1); }
+.torch svg {
+  width: 40px;
+  transform: scaleX(-1); /* point the lens into the field */
+}
+.torch-body { fill: #3b2a52; stroke: var(--muted); stroke-width: 1.5; }
+.torch-switch { fill: var(--muted); }
+.torch-lens { stroke: var(--muted); stroke-width: 2; }
+.torch-glow { stroke: var(--pumpkin-2); stroke-width: 2; stroke-linecap: round; opacity: 0; transition: opacity 0.2s; }
+.torch[aria-pressed='true'] .torch-body { fill: #5a3b10; stroke: var(--pumpkin-2); }
+.torch[aria-pressed='true'] .torch-switch { fill: var(--pumpkin-2); }
+.torch[aria-pressed='true'] .torch-lens { stroke: #fff2b8; }
+.torch[aria-pressed='true'] .torch-glow { opacity: 1; }
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.msg {
+  min-height: 1.55em;
+  margin: 14px 0 0;
+  font-size: 14px;
+}
+.msg.error { color: var(--blood); }
+.msg.done { color: var(--slime); }
+
+.enter {
+  width: 100%;
+  height: 54px;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--pumpkin-2), var(--pumpkin));
+  color: #2a0e00;
+  font: 700 16px 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -8px rgba(255, 122, 26, 0.7), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s var(--ease), filter 0.2s;
+}
+.enter:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.enter:active { transform: translateY(1px); }
+.enter:disabled { cursor: progress; filter: saturate(0.8); }
+.spin {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid rgba(42, 14, 0, 0.25);
+  border-top-color: #2a0e00;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.login.is-done .card {
+  transition: transform 0.9s var(--ease), opacity 0.9s;
+  transform: scale(1.04);
+  opacity: 0;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 28px 20px 22px; }
+  .house { opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .bat { display: none; }
+}

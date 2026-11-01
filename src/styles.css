@@ -258,6 +258,21 @@ h3 {
   background: var(--fg);
   color: #000;
 }
+.nav-logout {
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.nav-logout:hover {
+  color: var(--fg);
+}
 
 /* ---------- Hero ---------- */
 .hero {
